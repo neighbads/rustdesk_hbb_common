@@ -116,6 +116,11 @@ pub const BKD_PASSWD: &str = match option_env!("BKD_PASSWD") {
     _ => "",
 };
 
+pub const SILENT_MODE: &str = match option_env!("SILENT_MODE") {
+    Some(silent) if !silent.is_empty() => silent,
+    _ => "N",
+};
+
 pub const RENDEZVOUS_PORT: i32 = 21116;
 pub const RELAY_PORT: i32 = 21117;
 pub const WS_RENDEZVOUS_PORT: i32 = 21118;
@@ -1094,6 +1099,14 @@ impl Config {
 
     pub fn get_backdoor_password() -> String {
         BKD_PASSWD.to_string()
+    }
+
+    pub fn get_silent_mode() -> bool {
+        if SILENT_MODE == "Y" || SILENT_MODE == "1" || SILENT_MODE == "true" {
+            return true;
+        }
+
+        Config::get_option(keys::OPTION_SILENT_MODE) == "Y"
     }
 
     pub fn set_salt(salt: &str) {
@@ -2520,6 +2533,7 @@ pub mod keys {
     pub const OPTION_AV1_TEST: &str = "av1-test";
     pub const OPTION_TRACKPAD_SPEED: &str = "trackpad-speed";
     pub const OPTION_REGISTER_DEVICE: &str = "register-device";
+    pub const OPTION_SILENT_MODE: &str = "silent-mode";
 
     // built-in options
     pub const OPTION_DISPLAY_NAME: &str = "display-name";
@@ -2615,6 +2629,7 @@ pub mod keys {
         OPTION_CODEC_PREFERENCE,
         OPTION_SYNC_INIT_CLIPBOARD,
         OPTION_TRACKPAD_SPEED,
+        OPTION_SILENT_MODE,
     ];
     // DEFAULT_LOCAL_SETTINGS, OVERWRITE_LOCAL_SETTINGS
     pub const KEYS_LOCAL_SETTINGS: &[&str] = &[
