@@ -1673,7 +1673,7 @@ serde_field_bool!(
 );
 serde_field_bool!(
     LockAfterSessionEnd,
-    "lock_after_session_end",
+    "lock-after-session-end",
     default_lock_after_session_end,
     "LockAfterSessionEnd::default_lock_after_session_end"
 );
@@ -1970,6 +1970,7 @@ impl UserDefaultConfig {
             keys::OPTION_CUSTOM_IMAGE_QUALITY => self.get_num_string(key, 50.0, 10.0, 0xFFF as f64),
             keys::OPTION_CUSTOM_FPS => self.get_num_string(key, 30.0, 5.0, 120.0),
             keys::OPTION_ENABLE_FILE_COPY_PASTE => self.get_string(key, "Y", vec!["", "N"]),
+            keys::OPTION_LOCK_AFTER_SESSION_END => self.get_string(key, "Y", vec!["", "N"]),
             keys::OPTION_TRACKPAD_SPEED => self.get_num_string(key, 100, 10, 1000),
             _ => self
                 .get_after(key)
@@ -2443,7 +2444,7 @@ pub mod keys {
     pub const OPTION_ENABLE_REMOTE_PRINTER: &str = "enable-remote-printer";
     pub const OPTION_ENABLE_FILE_COPY_PASTE: &str = "enable-file-copy-paste";
     pub const OPTION_DISABLE_CLIPBOARD: &str = "disable_clipboard";
-    pub const OPTION_LOCK_AFTER_SESSION_END: &str = "lock_after_session_end";
+    pub const OPTION_LOCK_AFTER_SESSION_END: &str = "lock-after-session-end";
     pub const OPTION_PRIVACY_MODE: &str = "privacy_mode";
     pub const OPTION_TOUCH_MODE: &str = "touch-mode";
     pub const OPTION_I444: &str = "i444";
